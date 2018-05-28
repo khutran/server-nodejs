@@ -7,7 +7,6 @@ ENV port 9056
 RUN cd ~ && \
     curl 'https://setup.ius.io/' -o setup-ius.sh && \
 	bash setup-ius.sh && \
-    yum update -y && \
     yum install -y php56u-cli \
         php56u-fpm \
 		php56u-devel \
