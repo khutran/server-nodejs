@@ -103,7 +103,7 @@ services:
             MYSQL_USER: vicoders
             MYSQL_PASSWORD: vicoders123s
             MYSQL_DATABASE : vicodersdb
-            MYSQL_ROOT_HOST: 0.0.0.0   
+            MYSQL_ROOT_HOST=172.*.*.*  
        
         networks:
             vmms_network:
