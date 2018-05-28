@@ -17,6 +17,8 @@ services:
             - ./etc/php/php70/php-fpm.d:/usr/local/etc/php-fpm.d
         links:
             - mysql
+        depends_on:
+            - mysql
         restart: always
     
     #PHP5.6
@@ -34,6 +36,8 @@ services:
             - ./etc/php/php56/php-fpm.d:/usr/local/etc/php-fpm.d
             # - ./logs/php:/var/log/php-fpm
         links:
+            - mysql
+        depends_on:
             - mysql
         restart: always
 
@@ -85,6 +89,8 @@ services:
             - php7.0
             # - php7.1
             - php5.6
+        depends_on:
+            - mysql
         restart: always
 
     #MySQL config
