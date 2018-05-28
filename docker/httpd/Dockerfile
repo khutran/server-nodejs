@@ -40,6 +40,19 @@ RUN cd ~ && \
 	php71u-cli \
 	php71u-devel
  
+# install supervisord
+RUN yum -y install python-setuptools
+RUN easy_install supervisor
+RUN /usr/bin/echo_supervisord_conf > /etc/supervisord.conf
+RUN mkdir -p /var/log/supervisor
+
+# make supervisor run in foreground
+RUN sed -i -e "s/^nodaemon=false/nodaemon=true/" /etc/supervisord.conf
+
+# tell supervisor to include relative .ini files
+RUN mkdir /etc/supervisord.d
+RUN echo [include] >> /etc/supervisord.conf
+RUN echo 'files = /etc/supervisord.d/*.ini' >> /etc/supervisord.conf
 
 EXPOSE 6669
 
