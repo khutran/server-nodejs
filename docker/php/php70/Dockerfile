@@ -7,7 +7,6 @@ ENV port 9070
 RUN cd ~ && \
     curl 'https://setup.ius.io/' -o setup-ius.sh && \
 	bash setup-ius.sh && \
-    yum update -y && \
     yum install -y php70u-cli \
         php70u-fpm \
         php70u-mysqlnd \
