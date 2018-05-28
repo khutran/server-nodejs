@@ -47,4 +47,3 @@ ADD run-httpd.sh /run-httpd.sh
 RUN chmod -v +x /run-httpd.sh
 
 CMD ["/run-httpd.sh"]
-ENTRYPOINT /usr/sbin/php-fpm --nodaemonize
