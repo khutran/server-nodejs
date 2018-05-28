@@ -78,7 +78,7 @@ services:
         volumes:
             #source app
             - /var/www/web:/var/www/web
-            - /etc/httpd/conf.d/web:/etc/httpd/conf.d/web
+            - ./etc/httpd/conf.d/web:/etc/httpd/conf.d/web
             #httpd conf
             #- ./etc/httpd/httpd.conf:/etc/httpd/conf/httpd.conf
             #- ./etc/httpd/extra/vhosts:/etc/httpd/conf/extra/vhosts
@@ -112,7 +112,8 @@ services:
             - '3306:3306'
         volumes:
             #- ./etc/mysql:/root
-            - /var/lib/mysql:/var/lib/mysql
+            - ./var/lib/mysql:/bitnami
+            - ./etc/bitnami/mysql/conf:/opt/bitnami/mysql/conf
             #- ./logs/mysql:/var/log/mysql
         restart: always
 
