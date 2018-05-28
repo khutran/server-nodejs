@@ -95,15 +95,15 @@ services:
 
     #MySQL config
     mysql:
-        build: ./docker/mysql
-        image: mysql:5.7
+        #build: ./docker/mysql
+        image: 'bitnami/mysql:latest'
         container_name: mysql
         environment:
             MYSQL_ROOT_PASSWORD: Quenanhdi123s
             MYSQL_USER: vicoders
             MYSQL_PASSWORD: vicoders123s
-            MYSQL_DATABASE : vicodersdb
-            MYSQL_ROOT_HOST=172.*.*.*  
+            MYSQL_DATABASE: vicodersdb
+            MYSQL_ROOT_HOST: 0.0.0.0 
        
         networks:
             vmms_network:
