@@ -40,25 +40,6 @@ RUN cd ~ && \
 	php71u-cli \
 	php71u-devel
  
- # install supervisord
-RUN /bin/rpm -Uvh http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
-RUN yum -y install python-setuptools
-RUN easy_install supervisor
-RUN /usr/bin/echo_supervisord_conf > /etc/supervisord.conf
-RUN mkdir -p /var/log/supervisor
-
-# make supervisor run in foreground
-RUN sed -i -e "s/^nodaemon=false/nodaemon=true/" /etc/supervisord.conf
-
-# tell supervisor to include relative .ini files
-RUN mkdir /etc/supervisord.d
-RUN echo [include] >> /etc/supervisord.conf
-RUN echo 'files = /etc/supervisord.d/*.ini' >> /etc/supervisord.conf
-
-# add sshd program to supervisord config
-RUN echo [program:sshd] >> /etc/supervisord.d/ssh.ini
-RUN echo 'command=/usr/sbin/sshd -D' >> /etc/supervisord.d/ssh.ini
-RUN echo  >> /etc/supervisord.d/ssh.ini
 
 EXPOSE 6669
 
