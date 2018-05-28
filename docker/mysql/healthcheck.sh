@@ -1,4 +1,6 @@
-# Copyright (c) 2014, 2016, Oracle and/or its affiliates. All rights reserved.
+
+#!/bin/bash
+# Copyright (c) 2017, Oracle and/or its affiliates. All rights reserved.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -13,21 +15,11 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 
-#
-# The MySQL  Server configuration file.
-#
-# For explanations see
-# http://dev.mysql.com/doc/mysql/en/server-system-variables.html
-
-[mysqld]
-pid-file	= /var/run/mysqld/mysqld.pid
-socket		= /var/run/mysqld/mysqld.sock
-datadir		= /var/lib/mysql
-#log-error	= /var/log/mysql/error.log
-# By default we only accept connections from localhost
-#bind-address	= 127.0.0.1
-# Disabling symbolic-links is recommended to prevent assorted security risks
-symbolic-links=0
-general_log=1
-general_log_file="/var/log/mysql/general_log.log"
-
+# The mysql-init-complete file is touched by the entrypoint file before the
+# main server process is started
+if [ -f /mysql-init-complete ]; # The entrypoint script touches this file
+then # Ping server to see if it is ready
+  mysqladmin --defaults-extra-file=/healthcheck.cnf ping
+else # Initialization still in progress
+  exit 1
+fi
