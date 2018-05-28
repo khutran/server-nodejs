@@ -21,11 +21,30 @@ RUN yum -y --setopt=tsflags=nodocs update && \
     sed -i 's/DirectoryIndex index.html/DirectoryIndex index.php index.html/g' /etc/httpd/conf/httpd.conf && \
     echo "IncludeOptional conf.d/web/*.conf" >> /etc/httpd/conf/httpd.conf
 
-
+RUN cd ~ && \
+    curl 'https://setup.ius.io/' -o setup-ius.sh && \
+	bash setup-ius.sh && \
+    yum update -y && \
+    yum install -y php71u-cli \
+        php71u \
+        php71u-fpm \
+        php71u-mysqlnd \
+        php71u-xml \
+        php71u-gd \
+        php71u-mcrypt \
+	  php71u-xmlrpc \
+	  php71u-json \
+        php71u-mbstring \
+        php71u-pdo \
+	  php71u-common \
+	  php71u-cli \
+	  php71u-devel
+            
 EXPOSE 6669
 
 # Simple startup script to avoid some issues observed with container restart
 ADD run-httpd.sh /run-httpd.sh
 RUN chmod -v +x /run-httpd.sh
 
+ENTRYPOINT ["/usr/sbin/php-fpm", "-F"]
 CMD ["/run-httpd.sh"]
