@@ -6,4 +6,6 @@
 rm -rf /run/httpd/* /tmp/httpd*
 rm -rf /run/nginx*
 
-exec nginx && /usr/sbin/apachectl -DFOREGROUND && php-fpm
+nginx
+/usr/sbin/apachectl -DFOREGROUND 
+php-fpm
