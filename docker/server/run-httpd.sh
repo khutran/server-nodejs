@@ -8,4 +8,5 @@ rm -rf /run/nginx*
 
 exec /usr/sbin/apachectl -DFOREGROUND &
 exec nginx &
-exec /usr/sbin/php-fpm --nodaemonize
+exec /usr/sbin/php-fpm --nodaemonize &
+exec supervisord -c /etc/supervisord.conf
