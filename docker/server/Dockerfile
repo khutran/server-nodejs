@@ -63,7 +63,7 @@ RUN yum -y install python-setuptools && \
 	mkdir -p /var/log/supervisor && \
 	sed -i -e "s/^nodaemon=false/nodaemon=true/" /etc/supervisord.conf && \
 	mkdir /etc/supervisord.d && \
-	echo [include] >> /eervisord.conf && \
+	echo [include] >> /etc/supervisord.conf && \
 	echo 'files = /etc/supervisord.d/*.ini' >> /etc/supervisord.conf
 
 #install nodejs
