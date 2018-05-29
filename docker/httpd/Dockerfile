@@ -52,6 +52,11 @@ RUN yum -y install python-setuptools && \
 	echo [include] >> /eervisord.conf && \
 	echo 'files = /etc/supervisord.d/*.ini' >> /etc/supervisord.conf
 
+#install nodejs
+RUN curl --silent --location https://rpm.nodesource.com/setup_8.x | bash - && \
+    yum -y install nodejs && \
+    curl --silent --location https://dl.yarnpkg.com/rpm/yarn.repo | tee /etc/yum.repos.d/yarn.repo && \
+    yum -y install yarn
 
 EXPOSE 6669
 
