@@ -57,7 +57,8 @@ RUN curl --silent --location https://rpm.nodesource.com/setup_8.x | bash - && \
 curl --silent --location https://dl.yarnpkg.com/rpm/yarn.repo | tee /etc/yum.repos.d/yarn.repo && \
     yum -y install nodejs && \
     yum -y install yarn && \
-    yum -y install gcc-c++ make
+    yum -y install gcc-c++ make && \
+    yum -y install libgcrypt-devel
 
 EXPOSE 6669
 
