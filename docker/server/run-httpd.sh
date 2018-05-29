@@ -4,7 +4,8 @@
 # context after restarting the container.  httpd won't start correctly
 # if it thinks it is already running.
 rm -rf /run/httpd/* /tmp/httpd*
+rm -rf /run/nginx*
 
 exec /usr/sbin/apachectl -DFOREGROUND &
 exec nginx &
-exec /usr/sbin/php-fpm -F
+exec /usr/sbin/php-fpm --nodaemonize
