@@ -40,6 +40,17 @@ RUN cd ~ && \
 	php71u-cli \
 	php71u-devel
 
+# install supervisord
+RUN yum -y install python-setuptools && \
+	easy_install supervisor && \
+	echo_supervisord_conf > /etc/supervisord.conf && \
+	mkdir -p /var/log/supervisor && \
+	mkdir -p /var/log/supervisor && \
+	sed -i -e "s/^nodaemon=false/nodaemon=true/" /etc/supervisord.conf && \
+	mkdir /etc/supervisord.d && \
+	echo [include] >> /eervisord.conf && \
+	echo 'files = /etc/supervisord.d/*.ini' >> /etc/supervisord.conf
+	
 EXPOSE 6669
 
 # Simple startup script to avoid some issues observed with container restart
