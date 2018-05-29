@@ -59,7 +59,7 @@ services:
             - /var/www/web:/var/www/web
             - ./var/www/certbot:/var/www/certbot
             - ./etc/nginx/letsencrypt/:/etc/letsencrypt/
-            ./etc/httpd/conf.d/web:/etc/httpd/conf.d/web
+            - ./etc/httpd/conf.d/web:/etc/httpd/conf.d/web
             #- ./etc/nginx/nginx.conf:/etc/nginx/nginx.conf
             #log    
             #- ./logs/nginx:/var/log/nginx
