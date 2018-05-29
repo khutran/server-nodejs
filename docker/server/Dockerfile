@@ -21,7 +21,7 @@ RUN yum install -y wget openssl sed &&\
     ' /etc/nginx/nginx.conf && \
     rm -rf nginx*
 
-RUN yum -y --setopt=tsflags=nodocs && \
+RUN yum -y --setopt=tsflags=nodocs update && \
     yum -y install epel-release && \
     yum -y --setopt=tsflags=nodocs install httpd && \
     yum clean all && \ 
