@@ -56,9 +56,10 @@ services:
             #nginx conf
             - ./etc/nginx/conf.d:/etc/nginx/conf.d
             #- ./etc/nginx/snippets:/etc/nginx/snippets
-            - /var/www/web:/var/www/etc
+            - /var/www/web:/var/www/web
+            - ./var/www/cerbot:/var/www/cerbot
             - ./etc/nginx/letsencrypt/:/etc/letsencrypt/
-            #- ./etc/nginx/nginx.conf:/etc/nginx/nginx.conf
+            - ./etc/nginx/nginx.conf:/etc/nginx/nginx.conf
             #log    
             #- ./logs/nginx:/var/log/nginx
         links:
