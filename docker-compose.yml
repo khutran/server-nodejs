@@ -42,10 +42,10 @@ services:
         restart: always
 
     #nginx web app
-    nginx:
-        build: ./docker/nginx
-        image: nginx
-        container_name: nginx
+    server:
+        build: ./docker/server
+        image: server
+        container_name: server
         networks:
             vmms_network:
                 ipv4_address: 172.20.0.4
@@ -59,36 +59,12 @@ services:
             - /var/www/web:/var/www/web
             - ./var/www/certbot:/var/www/certbot
             - ./etc/nginx/letsencrypt/:/etc/letsencrypt/
+            ./etc/httpd/conf.d/web:/etc/httpd/conf.d/web
             #- ./etc/nginx/nginx.conf:/etc/nginx/nginx.conf
             #log    
             #- ./logs/nginx:/var/log/nginx
         links:
-            - httpd
-        restart: always
-
-    #apache web server
-    httpd:
-        build: ./docker/httpd
-        image: httpd
-        container_name: httpd
-        networks:
-            vmms_network:
-                ipv4_address: 172.20.0.5
-        ports:
-            - '6669:6669'
-        volumes:
-            #source app
-            - /var/www/web:/var/www/web
-            - ./etc/httpd/conf.d/web:/etc/httpd/conf.d/web
-            #httpd conf
-            #- ./etc/httpd/httpd.conf:/etc/httpd/conf/httpd.conf
-            #- ./etc/httpd/extra/vhosts:/etc/httpd/conf/extra/vhosts
-            #log    
-            #- ./logs/httpd:/var/log/httpd    
-            #- ./logs/php:/var/log/php-fpm  
-        links:
             - php7.0
-            # - php7.1
             - php5.6
         depends_on:
             - mysql
