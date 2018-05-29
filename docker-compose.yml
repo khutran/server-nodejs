@@ -44,7 +44,7 @@ services:
     #nginx web app
     server:
         build: ./docker/server
-        image: server
+        image: server:0.1
         container_name: server
         networks:
             vmms_network:
