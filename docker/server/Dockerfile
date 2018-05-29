@@ -8,7 +8,8 @@ LABEL Vendor="CentOS" \
 ENV nginxversion="1.12.2-1" \
     os="centos" \
     osversion="7" \
-    elversion="7_4"
+    elversion="7_4" \
+    port_apache=6669
     
 RUN yum install -y wget openssl sed &&\
     yum -y autoremove &&\
@@ -17,9 +18,10 @@ RUN yum install -y wget openssl sed &&\
     rpm -iv nginx-$nginxversion.el$elversion.ngx.x86_64.rpm &&\
     sed -i '1i\
     daemon off;\
-    ' /etc/nginx/nginx.conf
+    ' /etc/nginx/nginx.conf && \
+    rm -rf nginx*
 
-RUN yum -y --setopt=tsflags=nodocs update && \
+RUN yum -y --setopt=tsflags=nodocs && \
     yum -y install epel-release && \
     yum -y --setopt=tsflags=nodocs install httpd && \
     yum clean all && \ 
@@ -30,7 +32,7 @@ RUN yum -y --setopt=tsflags=nodocs update && \
     wget https://repo.codeit.guru/codeit.el`rpm -q --qf "%{VERSION}" $(rpm -q --whatprovides redhat-release)`.repo && \
     yum -y install httpd && \
     mkdir /etc/httpd/conf.d/web && \
-    sed -i s/80/6669/g /etc/httpd/conf/httpd.conf && \
+    sed -i s/80/${port_apache}/g /etc/httpd/conf/httpd.conf && \
     sed -i 's/DirectoryIndex index.html/DirectoryIndex index.php index.html/g' /etc/httpd/conf/httpd.conf && \
     echo "IncludeOptional conf.d/web/*.conf" >> /etc/httpd/conf/httpd.conf
 
