@@ -10,7 +10,26 @@ ENV nginxversion="1.12.2-1" \
     osversion="7" \
     elversion="7_4" \
     port_apache=6669
-    
+
+RUN cd ~ && \
+    curl 'https://setup.ius.io/' -o setup-ius.sh && \
+	bash setup-ius.sh && \
+    yum update -y && \
+    yum install -y php71u-cli \
+        php71u \
+        php71u-fpm \
+        php71u-mysqlnd \
+        php71u-xml \
+        php71u-gd \
+        php71u-mcrypt \
+	php71u-xmlrpc \
+	php71u-json \
+        php71u-mbstring \
+        php71u-pdo \
+	php71u-common \
+	php71u-cli \
+	php71u-devel
+
 RUN yum install -y wget openssl sed &&\
     yum -y autoremove &&\
     yum clean all &&\
@@ -35,25 +54,6 @@ RUN yum -y --setopt=tsflags=nodocs update && \
     sed -i s/80/${port_apache}/g /etc/httpd/conf/httpd.conf && \
     sed -i 's/DirectoryIndex index.html/DirectoryIndex index.php index.html/g' /etc/httpd/conf/httpd.conf && \
     echo "IncludeOptional conf.d/web/*.conf" >> /etc/httpd/conf/httpd.conf
-
-RUN cd ~ && \
-    curl 'https://setup.ius.io/' -o setup-ius.sh && \
-	bash setup-ius.sh && \
-    yum update -y && \
-    yum install -y php71u-cli \
-        php71u \
-        php71u-fpm \
-        php71u-mysqlnd \
-        php71u-xml \
-        php71u-gd \
-        php71u-mcrypt \
-	php71u-xmlrpc \
-	php71u-json \
-        php71u-mbstring \
-        php71u-pdo \
-	php71u-common \
-	php71u-cli \
-	php71u-devel
 
 # install supervisord
 RUN yum -y install python-setuptools && \
