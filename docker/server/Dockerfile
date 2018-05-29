@@ -5,6 +5,11 @@ LABEL Vendor="CentOS" \
       License=GPLv2 \
       Version=2.4.6-40
 
+ENV nginxversion="1.12.2-1" \
+    os="centos" \
+    osversion="7" \
+    elversion="7_4"
+    
 RUN yum install -y wget openssl sed &&\
     yum -y autoremove &&\
     yum clean all &&\
@@ -67,7 +72,8 @@ RUN yum -y install git && \
     yum -y install yarn && \
     yum -y install gcc-c++ make && \
     yum -y install libgcrypt-devel && \
-    ln -s /usr/lib64/libcurl.so.4 /usr/lib64/libcurl-gnutls.so.4
+    ln -s /usr/lib64/libcurl.so.4 /usr/lib64/libcurl-gnutls.so.4 && \
+    yum clean all
     
 EXPOSE 80
 
