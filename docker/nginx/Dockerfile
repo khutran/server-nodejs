@@ -25,4 +25,9 @@ RUN yum -y install git && \
     yum -y install libgcrypt-devel && \
     ln -s /usr/lib64/libcurl.so.4 /usr/lib64/libcurl-gnutls.so.4
     
+#install https://github.com/certbot/certbot.git
+RUN git clone https://github.com/certbot/certbot.git /var/www/cerbot && \
+    cd /var/www/cerbot && \
+    ./certbot-auto
+
 CMD ["nginx"]
