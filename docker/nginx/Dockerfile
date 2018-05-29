@@ -26,6 +26,9 @@ RUN yum -y install git && \
     ln -s /usr/lib64/libcurl.so.4 /usr/lib64/libcurl-gnutls.so.4
     
 #install https://github.com/certbot/certbot.git
-RUN ./var/www/certbot/certbot-auto
+#RUN mkdir -p /var/www/certbot/ && \
+#    cd /var/www/certbot/ && \
+#    git clone https://github.com/certbot/certbot.git ./
+#    ./certbot-auto
     
 CMD ["nginx"]

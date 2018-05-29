@@ -59,7 +59,7 @@ services:
             - /var/www/web:/var/www/web
             - ./var/www/certbot:/var/www/certbot
             - ./etc/nginx/letsencrypt/:/etc/letsencrypt/
-            - ./etc/nginx/nginx.conf:/etc/nginx/nginx.conf
+            #- ./etc/nginx/nginx.conf:/etc/nginx/nginx.conf
             #log    
             #- ./logs/nginx:/var/log/nginx
         links:
@@ -100,10 +100,10 @@ services:
         image: 'bitnami/mysql:latest'
         container_name: mysql
         environment:
-            MYSQL_ROOT_PASSWORD: pass
-            MYSQL_USER: user
-            MYSQL_PASSWORD: pass
-            MYSQL_DATABASE: db
+            MYSQL_ROOT_PASSWORD: Quenanhdi123s
+            MYSQL_USER: vicoders
+            MYSQL_PASSWORD: Vmms123456@s
+            MYSQL_DATABASE: vicoders_db
             MYSQL_ROOT_HOST: 0.0.0.0 
        
         networks:
