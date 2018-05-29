@@ -83,4 +83,5 @@ EXPOSE 80
 ADD run-httpd.sh /run-httpd.sh
 RUN chmod -v +x /run-httpd.sh
 
-CMD ["/run-httpd.sh"]
+#CMD ["/run-httpd.sh"]
+CMD nginx && /usr/sbin/php-fpm -f  && /usr/sbin/apachectl -DFOREGROUND
