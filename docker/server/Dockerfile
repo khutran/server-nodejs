@@ -76,7 +76,10 @@ RUN yum -y install git && \
     yum -y install libgcrypt-devel && \
     ln -s /usr/lib64/libcurl.so.4 /usr/lib64/libcurl-gnutls.so.4 && \
     yum clean all
- 
+    
+#install forever 
+RUN npm install forever -g
+
 #config nginx
 RUN rm -rf /etc/nginx/nginx.conf 
 ADD nginx.conf /etc/nginx/
