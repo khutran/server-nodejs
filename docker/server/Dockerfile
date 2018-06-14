@@ -81,7 +81,8 @@ RUN yum -y install git && \
 RUN npm install forever -g
 
 #install composer 
-RUN sudo curl -sS https://getcomposer.org/installer | php && \
+RUN cd /tmp && \
+    sudo curl -sS https://getcomposer.org/installer | php && \
     mv composer.phar /usr/local/bin/composer
 
 #config nginx
