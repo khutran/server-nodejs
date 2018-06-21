@@ -55,6 +55,17 @@ RUN yum -y --setopt=tsflags=nodocs update && \
     #sed -i 's/DirectoryIndex index.html/DirectoryIndex index.php index.html/g' /etc/httpd/conf/httpd.conf && \
     #echo "IncludeOptional conf.d/web/*.conf" >> /etc/httpd/conf/httpd.conf
 
+# install supervisord
+RUN yum -y install python-setuptools && \
+	easy_install supervisor && \
+	echo_supervisord_conf > /etc/supervisord.conf && \
+	mkdir -p /var/log/supervisor && \
+	mkdir -p /var/log/supervisor && \
+	sed -i -e "s/^nodaemon=false/nodaemon=true/" /etc/supervisord.conf && \
+	mkdir /etc/supervisord.d && \
+	echo [include] >> /etc/supervisord.conf && \
+	echo 'files = /etc/supervisord.d/*.ini' >> /etc/supervisord.conf
+
 #install nodejs
 RUN yum -y install git && \
     curl --silent --location https://rpm.nodesource.com/setup_8.x | bash - && \
