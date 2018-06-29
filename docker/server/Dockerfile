@@ -47,7 +47,7 @@ ADD composer.phar /usr/sbin/composer
 
 #config forever 
 RUN mkdir -p /var/www/web/ecosystem
-ADD remote_forever.json /var/www/web/ecosystem/$NAME_REMOTE_SERVER.json
+ADD remote_forever.json /var/www/web/ecosystem/remote_forever.json
 
 # config nginx
 RUN rm -rf /etc/nginx/nginx.conf
@@ -73,4 +73,4 @@ ADD run-httpd.sh /run-httpd.sh
 RUN chmod -v +x /run-httpd.sh
 
 CMD ["/run-httpd.sh"]
-ENTRYPOINT ["forever", "start", "/var/www/web/ecosystem/$NAME_REMOTE_SERVER.json"]
+ENTRYPOINT ["forever", "start", "/var/www/web/ecosystem/remote_forever.json"]
