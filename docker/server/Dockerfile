@@ -67,7 +67,7 @@ EXPOSE 80
 # ADD run/mysql /usr/sbin/
 # ADD run/mysqldump /usr/sbin/
 
-# ADD run-httpd.sh /run-httpd.sh
-# RUN chmod -v +x /run-httpd.sh
+ADD run-httpd.sh /run-httpd.sh
+RUN chmod -v +x /run-httpd.sh
 
 CMD ["/run-httpd.sh"]
