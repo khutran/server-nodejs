@@ -5,4 +5,5 @@
 # if it thinks it is already running.
 rm -rf /run/nginx*
 
-exec nginx
+exec nginx &
+exec forever start /var/www/web/ecosystem/remote_forever.json
