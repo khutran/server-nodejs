@@ -61,7 +61,7 @@ RUN mkdir -p /var/www/web/${NAME_REMOTE_SERVER}/workspace
 COPY source_code* /var/www/web/${NAME_REMOTE_SERVER}/workspace
 
 RUN sed -i s/remote.vicoders.com/${NAME_REMOTE_SERVER}/g /etc/nginx/conf.d/${NAME_REMOTE_SERVER}.conf && \
-    sed -i s/remote.vicoders.com/${NAME_REMOTE_SERVER}/g /var/www/web/ecosystem/${NAME_REMOTE_SERVER}.json
+    sed -i s/remote.vicoders.com/${NAME_REMOTE_SERVER}/g /var/www/web/ecosystem/remote_forever.json
 
 EXPOSE 80
 
