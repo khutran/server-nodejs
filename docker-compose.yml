@@ -9,6 +9,9 @@ services:
             dockerfile: Dockerfile
             args: 
               NAME_REMOTE_SERVER: remote-test.vicoders.com
+              MYSQL_USER: remote
+              MYSQL_PASS: Vmms123456@s
+              MYSQL_HOST: 172.20.0.3
 
         image: server:0.1
         container_name: server
@@ -40,7 +43,7 @@ services:
         container_name: mysql
         environment:
             MYSQL_ROOT_PASSWORD: Quenanhdi123s
-            MYSQL_USER: vicoders
+            MYSQL_USER: remote
             MYSQL_PASSWORD: Vmms123456@s
             MYSQL_DATABASE: vicoders_db
             MYSQL_ROOT_HOST: 0.0.0.0 
