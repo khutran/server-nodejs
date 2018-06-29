@@ -29,26 +29,27 @@ RUN yum install -y wget openssl sed &&\
 
 
 #install nodejs
-RUN yum -y install git && \
-    curl --silent --location https://rpm.nodesource.com/setup_8.x | bash - && \
-    curl --silent --location https://dl.yarnpkg.com/rpm/yarn.repo | tee /etc/yum.repos.d/yarn.repo && \
-    yum -y install nodejs && \
-    yum -y install yarn && \
-    yum -y install gcc-c++ make && \
-    yum -y install libgcrypt-devel && \
-    ln -s /usr/lib64/libcurl.so.4 /usr/lib64/libcurl-gnutls.so.4 && \
-    yum clean all
+# RUN yum -y install git && \
+#     curl --silent --location https://rpm.nodesource.com/setup_8.x | bash - && \
+#     curl --silent --location https://dl.yarnpkg.com/rpm/yarn.repo | tee /etc/yum.repos.d/yarn.repo && \
+#     yum -y install nodejs && \
+#     yum -y install yarn && \
+#     yum -y install gcc-c++ make && \
+#     yum -y install libgcrypt-devel && \
+#     ln -s /usr/lib64/libcurl.so.4 /usr/lib64/libcurl-gnutls.so.4 && \
+#     yum clean all
     
 #install forever 
-RUN npm install forever -g
+# RUN npm install forever -g
 
 #install composer 
 ADD composer.phar /usr/sbin/composer
 
 #config forever 
-RUN mkdir -p /var/www/web/ecosystem 
+RUN mkdir -p /var/www/web/ecosystem && \
+    echo $NAME_REMOTE_SERVER
 
-ADD remote_forever.json /var/www/web/ecosystem/$NAME_REMOTE_SERVER.json
+# ADD remote_forever.json /var/www/web/ecosystem/$NAME_REMOTE_SERVER.json
 
 #config nginx
 # RUN rm -rf /etc/nginx/nginx.conf
