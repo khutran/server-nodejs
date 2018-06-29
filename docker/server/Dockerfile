@@ -45,7 +45,7 @@ RUN npm install forever -g
 ADD composer.phar /usr/sbin/composer
 
 #config forever 
-RUN mkdir /var/www/web/ecosystem
+RUN mkdir -p /var/www/web/ecosystem
 
 ADD remote_forever.json /var/www/web/ecosystem/${NAME_REMOTE_SERVER}.json
 
