@@ -84,8 +84,10 @@ RUN npm install forever -g
 ADD composer.phar /usr/sbin/composer
 
 #config forever 
-RUN mkdir /var/www/web/ecosystem
-ADD remote_forever.json /var/www/web/ecosystem
+RUN mkdir /var/www/web && \
+    mkdir /var/www/web/ecosystem
+
+ADD remote_forever.json /var/www/web/ecosystem/${NAME_REMOTE_SERVER}.json
 
 #config nginx
 RUN rm -rf /etc/nginx/nginx.conf
@@ -96,8 +98,12 @@ ADD nginx.conf /etc/nginx/
 RUN rm -rf /etc/httpd/conf/httpd.conf
 ADD httpd.conf /etc/httpd/conf/
 
+# add code remote
 RUN mkdir -p /var/www/web/${NAME_REMOTE_SERVER}/workspace
 COPY --chown=php-fpm:php-fpm code/remote-server-nodejs* /var/www/web/${NAME_REMOTE_SERVER}/workspace
+
+RUN sed -i s/remote.vicoders.com/${NAME_REMOTE_SERVER}/g /etc/nginx/conf.d/remote_nginx.conf && \
+    sed -i s/remote.vicoders.com/${NAME_REMOTE_SERVER}/g /var/www/web/ecosystem/${NAME_REMOTE_SERVER}.json
 
 EXPOSE 80
 
