@@ -8,4 +8,4 @@ rm -rf /root/.forever/pids/*
 rm -rf /root/.forever/sock/*
 
 exec nginx &
-exec forever start /var/www/web/ecosystem/remote_forever.json
+exec forever --spinSleepTime 30000 start /var/www/web/ecosystem/remote_forever.json
