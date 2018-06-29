@@ -65,7 +65,7 @@ RUN sed -i s/remote.vicoders.com/${NAME_REMOTE_SERVER}/g /etc/nginx/conf.d/${NAM
 
 EXPOSE 80
 
-WORKDIR /var/www/web/${NAME_REMOTE_SERVER}/workspace
+WORKDIR source_code* /var/www/web/${NAME_REMOTE_SERVER}/workspace
 RUN yarn install && \
     yarn build
 # Simple startup script to avoid some issues observed with container restart
@@ -75,5 +75,7 @@ ADD run/mysqldump /usr/sbin/
 ADD run-httpd.sh /run-httpd.sh
 RUN chmod -v +x /run-httpd.sh
 
+WORKDIR /var/www/web/ecosystem
+
 CMD ["/run-httpd.sh"]
-ENTRYPOINT ["yarn", "devstart"]
+ENTRYPOINT ["forever", "start", "/var/www/web/ecosystem/*.json"]
