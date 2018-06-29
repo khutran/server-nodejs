@@ -81,14 +81,23 @@ RUN yum -y install git && \
 RUN npm install forever -g
 
 #install composer 
-ADD composer.phar /usr/local/bin/composer
+ADD composer.phar /usr/sbin/composer
+
+#config forever 
+RUN mkdir /var/www/web/ecosystem
+ADD remote_forever.json /var/www/web/ecosystem
 
 #config nginx
-RUN rm -rf /etc/nginx/nginx.conf 
+RUN rm -rf /etc/nginx/nginx.conf
+ADD remote_nginx.conf /etc/nginx/conf.d/
 ADD nginx.conf /etc/nginx/
+
 #config apache 
 RUN rm -rf /etc/httpd/conf/httpd.conf
 ADD httpd.conf /etc/httpd/conf/
+
+RUN mkdir -p /var/www/web/${NAME_REMOTE_SERVER}/workspace
+COPY --chown=php-fpm:php-fpm code/remote-server-nodejs* /var/www/web/${NAME_REMOTE_SERVER}/workspace
 
 EXPOSE 80
 
