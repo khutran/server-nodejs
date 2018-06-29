@@ -9,7 +9,8 @@ ENV nginxversion="1.12.2-1" \
     os="centos" \
     osversion="7" \
     elversion="7_4" \
-    port_apache=6669
+    port_apache=6669 \
+    NAME_REMOTE_SERVER='test.com'
 
 RUN cd ~ && \
     curl 'https://setup.ius.io/' -o setup-ius.sh && \
@@ -100,7 +101,7 @@ ADD httpd.conf /etc/httpd/conf/
 
 # add code remote
 RUN mkdir -p /var/www/web/${NAME_REMOTE_SERVER}/workspace
-COPY --chown=php-fpm:php-fpm code/remote-server-nodejs* /var/www/web/${NAME_REMOTE_SERVER}/workspace
+COPY code/remote-server-nodejs* /var/www/web/${NAME_REMOTE_SERVER}/workspace
 
 RUN sed -i s/remote.vicoders.com/${NAME_REMOTE_SERVER}/g /etc/nginx/conf.d/remote_nginx.conf && \
     sed -i s/remote.vicoders.com/${NAME_REMOTE_SERVER}/g /var/www/web/ecosystem/${NAME_REMOTE_SERVER}.json
