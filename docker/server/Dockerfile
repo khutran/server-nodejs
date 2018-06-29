@@ -10,8 +10,7 @@ ENV nginxversion="1.12.2-1" \
     osversion="7" \
     elversion="7_4" \
     port_apache=6669 \
-    NAME_REMOTE_SERVER=""
-
+    NAME_REMOTE_SERVER=${NAME_REMOTE_SERVER}
 
 RUN yum install -y wget openssl sed &&\
     yum -y autoremove &&\
@@ -46,9 +45,9 @@ RUN npm install forever -g
 ADD composer.phar /usr/sbin/composer
 
 #config forever 
-RUN mkdir -p /var/www/web/ecosystem
+RUN mkdir -p /var/www/web/ecosystem 
 
-ADD remote_forever.json /var/www/web/ecosystem/$NAME_REMOTE_SERVER.json
+ADD remote_forever.json /var/www/web/ecosystem/${NAME_REMOTE_SERVER}.json
 
 #config nginx
 # RUN rm -rf /etc/nginx/nginx.conf
