@@ -12,15 +12,16 @@ ENV nginxversion="1.12.2-1" \
     port_apache=6669
 
 ARG NAME_REMOTE_SERVER
-# RUN yum install -y wget openssl sed &&\
-#     yum -y autoremove &&\
-#     yum clean all &&\
-#     wget http://nginx.org/packages/$os/$osversion/x86_64/RPMS/nginx-$nginxversion.el$elversion.ngx.x86_64.rpm &&\
-#     rpm -iv nginx-$nginxversion.el$elversion.ngx.x86_64.rpm &&\
-#     sed -i '1i\
-#     daemon off;\
-#     ' /etc/nginx/nginx.conf && \
-#     rm -rf nginx*
+
+RUN yum install -y wget openssl sed &&\
+    yum -y autoremove &&\
+    yum clean all &&\
+    wget http://nginx.org/packages/$os/$osversion/x86_64/RPMS/nginx-$nginxversion.el$elversion.ngx.x86_64.rpm &&\
+    rpm -iv nginx-$nginxversion.el$elversion.ngx.x86_64.rpm &&\
+    sed -i '1i\
+    daemon off;\
+    ' /etc/nginx/nginx.conf && \
+    rm -rf nginx*
 
     #sed -i s/80/${port_apache}/g /etc/httpd/conf/httpd.conf && \
     #sed -i 's/DirectoryIndex index.html/DirectoryIndex index.php index.html/g' /etc/httpd/conf/httpd.conf && \
