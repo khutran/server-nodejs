@@ -4,10 +4,9 @@ services:
 
     #nginx web app
     server:
-        build: 
-            dockerfile: ./docker/server/Dockerfile
+        build: ./docker/server
             args: 
-              - NAME_REMOTE_SERVER: remote-test.vicoders.com
+              NAME_REMOTE_SERVER: 'remote-test.vicoders.com'
 
         image: server:0.1
         container_name: server
