@@ -9,19 +9,18 @@ ENV nginxversion="1.12.2-1" \
     os="centos" \
     osversion="7" \
     elversion="7_4" \
-    port_apache=6669
+    port_apache=6669 \
+    NAME_REMOTE_SERVER=
 
-ARG   NAME_REMOTE_SERVER
-
-RUN yum install -y wget openssl sed &&\
-    yum -y autoremove &&\
-    yum clean all &&\
-    wget http://nginx.org/packages/$os/$osversion/x86_64/RPMS/nginx-$nginxversion.el$elversion.ngx.x86_64.rpm &&\
-    rpm -iv nginx-$nginxversion.el$elversion.ngx.x86_64.rpm &&\
-    sed -i '1i\
-    daemon off;\
-    ' /etc/nginx/nginx.conf && \
-    rm -rf nginx*
+# RUN yum install -y wget openssl sed &&\
+#     yum -y autoremove &&\
+#     yum clean all &&\
+#     wget http://nginx.org/packages/$os/$osversion/x86_64/RPMS/nginx-$nginxversion.el$elversion.ngx.x86_64.rpm &&\
+#     rpm -iv nginx-$nginxversion.el$elversion.ngx.x86_64.rpm &&\
+#     sed -i '1i\
+#     daemon off;\
+#     ' /etc/nginx/nginx.conf && \
+#     rm -rf nginx*
 
     #sed -i s/80/${port_apache}/g /etc/httpd/conf/httpd.conf && \
     #sed -i 's/DirectoryIndex index.html/DirectoryIndex index.php index.html/g' /etc/httpd/conf/httpd.conf && \
@@ -67,10 +66,10 @@ RUN mkdir -p /var/www/web/ecosystem && \
 EXPOSE 80
 
 # Simple startup script to avoid some issues observed with container restart
-ADD run/mysql /usr/sbin/
-ADD run/mysqldump /usr/sbin/
+# ADD run/mysql /usr/sbin/
+# ADD run/mysqldump /usr/sbin/
 
-ADD run-httpd.sh /run-httpd.sh
-RUN chmod -v +x /run-httpd.sh
+# ADD run-httpd.sh /run-httpd.sh
+# RUN chmod -v +x /run-httpd.sh
 
 CMD ["/run-httpd.sh"]
