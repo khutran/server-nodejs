@@ -4,14 +4,18 @@ services:
 
     #nginx web app
     server:
-        build: ./docker/server
+        build: 
+            dockerfile: ./docker/server/Dockerfile
+            args: 
+              - NAME_REMOTE_SERVER: remote-test.vicoders.com
+
         image: server:0.1
         container_name: server
+        env_file:
+            - ./docker/server/server.env
         networks:
             vmms_network:
                 ipv4_address: 172.20.0.4
-        environment:
-            NAME_REMOTE_SERVER: remote-test.vicoders.com
         ports:
             - '80:80'
             - '443:443'
