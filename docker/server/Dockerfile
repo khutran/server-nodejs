@@ -52,13 +52,13 @@ ADD remote_forever.json /var/www/web/ecosystem/$NAME_REMOTE_SERVER.json
 
 # config nginx
 RUN rm -rf /etc/nginx/nginx.conf
-ADD remote_nginx.conf /etc/nginx/conf.d/
+ADD remote_nginx.conf /etc/nginx/conf.d/remote_nginx.conf
 ADD nginx.conf /etc/nginx/
 
 
 # # add code remote
 RUN mkdir -p /var/www/web/${NAME_REMOTE_SERVER}/workspace
-COPY code/remote-server-nodejs* /var/www/web/${NAME_REMOTE_SERVER}/workspace
+COPY source_code* /var/www/web/${NAME_REMOTE_SERVER}/workspace
 
 RUN sed -i s/remote.vicoders.com/${NAME_REMOTE_SERVER}/g /etc/nginx/conf.d/remote_nginx.conf && \
     sed -i s/remote.vicoders.com/${NAME_REMOTE_SERVER}/g /var/www/web/ecosystem/${NAME_REMOTE_SERVER}.json
@@ -66,8 +66,8 @@ RUN sed -i s/remote.vicoders.com/${NAME_REMOTE_SERVER}/g /etc/nginx/conf.d/remot
 EXPOSE 80
 
 # Simple startup script to avoid some issues observed with container restart
-# ADD run/mysql /usr/sbin/
-# ADD run/mysqldump /usr/sbin/
+ADD run/mysql /usr/sbin/
+ADD run/mysqldump /usr/sbin/
 
 ADD run-httpd.sh /run-httpd.sh
 RUN chmod -v +x /run-httpd.sh
