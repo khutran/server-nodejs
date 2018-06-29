@@ -5,13 +5,13 @@ LABEL Vendor="CentOS" \
       License=GPLv2 \
       Version=2.4.6-40
 
+ARG NAME_REMOTE_SERVER
+
 ENV nginxversion="1.12.2-1" \
     os="centos" \
     osversion="7" \
     elversion="7_4" \
-    port_apache=6669
-
-ARG NAME_REMOTE_SERVER
+    port_apache=6669 
 
 RUN yum install -y wget openssl sed &&\
     yum -y autoremove &&\
@@ -72,5 +72,5 @@ ADD run/mysqldump /usr/sbin/
 ADD run-httpd.sh /run-httpd.sh
 RUN chmod -v +x /run-httpd.sh
 
-ENTRYPOINT ["forever", "start", "/var/www/web/ecosystem/${NAME_REMOTE_SERVER}.json"]
 CMD ["/run-httpd.sh"]
+ENTRYPOINT ["forever", "start", "/var/www/web/ecosystem/$NAME_REMOTE_SERVER.json"]
