@@ -51,6 +51,8 @@ ADD remote_forever.json /var/www/web/ecosystem/$NAME_REMOTE_SERVER.json
 
 # config nginx
 RUN rm -rf /etc/nginx/nginx.conf
+
+ADD remote_nginx.conf /etc/nginx/conf.d/${NAME_REMOTE_SERVER}.conf
 ADD nginx.conf /etc/nginx/
 
 
@@ -58,7 +60,7 @@ ADD nginx.conf /etc/nginx/
 RUN mkdir -p /var/www/web/${NAME_REMOTE_SERVER}/workspace
 COPY source_code* /var/www/web/${NAME_REMOTE_SERVER}/workspace
 
-RUN sed -i s/remote.vicoders.com/${NAME_REMOTE_SERVER}/g /etc/nginx/conf.d/remote_nginx.conf && \
+RUN sed -i s/remote.vicoders.com/${NAME_REMOTE_SERVER}/g /etc/nginx/conf.d/${NAME_REMOTE_SERVER}.conf && \
     sed -i s/remote.vicoders.com/${NAME_REMOTE_SERVER}/g /var/www/web/ecosystem/${NAME_REMOTE_SERVER}.json
 
 EXPOSE 80
