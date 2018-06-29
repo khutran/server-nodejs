@@ -20,9 +20,9 @@ services:
             - '443:443'
         volumes:
             #nginx conf
-            - ./etc/nginx/conf.d:/etc/nginx/conf.d
+            # - ./etc/nginx/conf.d:/etc/nginx/conf.d
             #- ./etc/nginx/snippets:/etc/nginx/snippets
-            - /var/www/web:/var/www/web
+            # - /var/www/web:/var/www/web
             - ./var/www/certbot:/var/www/certbot
             - ./etc/nginx/letsencrypt/:/etc/letsencrypt/
             # - ./etc/httpd/conf.d/web:/etc/httpd/conf.d/web
