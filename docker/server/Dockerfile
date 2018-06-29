@@ -9,27 +9,8 @@ ENV nginxversion="1.12.2-1" \
     os="centos" \
     osversion="7" \
     elversion="7_4" \
-    port_apache=6669 \
-    NAME_REMOTE_SERVER='test.com'
+    port_apache=6669
 
-RUN cd ~ && \
-    curl 'https://setup.ius.io/' -o setup-ius.sh && \
-	bash setup-ius.sh && \
-    yum update -y && \
-    yum install -y php71u-cli \
-        php71u \
-        php71u-fpm \
-        php71u-mysqlnd \
-        php71u-xml \
-        php71u-gd \
-        php71u-mcrypt \
-	php71u-xmlrpc \
-	php71u-json \
-        php71u-mbstring \
-        php71u-pdo \
-	php71u-common \
-	php71u-cli \
-	php71u-devel
 
 RUN yum install -y wget openssl sed &&\
     yum -y autoremove &&\
@@ -41,31 +22,10 @@ RUN yum install -y wget openssl sed &&\
     ' /etc/nginx/nginx.conf && \
     rm -rf nginx*
 
-RUN yum -y --setopt=tsflags=nodocs update && \
-    yum -y install epel-release && \
-    yum -y --setopt=tsflags=nodocs install httpd && \
-    yum clean all && \ 
-    yum -y install wget && \
-    yum -y install yum-changelog && \
-    yum changelog httpd && \
-    cd /etc/yum.repos.d && \
-    wget https://repo.codeit.guru/codeit.el`rpm -q --qf "%{VERSION}" $(rpm -q --whatprovides redhat-release)`.repo && \
-    yum -y install httpd && \
-    mkdir /etc/httpd/conf.d/web
     #sed -i s/80/${port_apache}/g /etc/httpd/conf/httpd.conf && \
     #sed -i 's/DirectoryIndex index.html/DirectoryIndex index.php index.html/g' /etc/httpd/conf/httpd.conf && \
     #echo "IncludeOptional conf.d/web/*.conf" >> /etc/httpd/conf/httpd.conf
 
-# install supervisord
-RUN yum -y install python-setuptools && \
-	easy_install supervisor && \
-	echo_supervisord_conf > /etc/supervisord.conf && \
-	mkdir -p /var/log/supervisor && \
-	mkdir -p /var/log/supervisor && \
-	sed -i -e "s/^nodaemon=false/nodaemon=true/" /etc/supervisord.conf && \
-	mkdir /etc/supervisord.d && \
-	echo [include] >> /etc/supervisord.conf && \
-	echo 'files = /etc/supervisord.d/*.ini' >> /etc/supervisord.conf
 
 #install nodejs
 RUN yum -y install git && \
@@ -91,20 +51,17 @@ RUN mkdir /var/www/web && \
 ADD remote_forever.json /var/www/web/ecosystem/${NAME_REMOTE_SERVER}.json
 
 #config nginx
-RUN rm -rf /etc/nginx/nginx.conf
-ADD remote_nginx.conf /etc/nginx/conf.d/
-ADD nginx.conf /etc/nginx/
+# RUN rm -rf /etc/nginx/nginx.conf
+# ADD remote_nginx.conf /etc/nginx/conf.d/
+# ADD nginx.conf /etc/nginx/
 
-#config apache 
-RUN rm -rf /etc/httpd/conf/httpd.conf
-ADD httpd.conf /etc/httpd/conf/
 
-# add code remote
-RUN mkdir -p /var/www/web/${NAME_REMOTE_SERVER}/workspace
-COPY code/remote-server-nodejs* /var/www/web/${NAME_REMOTE_SERVER}/workspace
+# # add code remote
+# RUN mkdir -p /var/www/web/${NAME_REMOTE_SERVER}/workspace
+# COPY code/remote-server-nodejs* /var/www/web/${NAME_REMOTE_SERVER}/workspace
 
-RUN sed -i s/remote.vicoders.com/${NAME_REMOTE_SERVER}/g /etc/nginx/conf.d/remote_nginx.conf && \
-    sed -i s/remote.vicoders.com/${NAME_REMOTE_SERVER}/g /var/www/web/ecosystem/${NAME_REMOTE_SERVER}.json
+# RUN sed -i s/remote.vicoders.com/${NAME_REMOTE_SERVER}/g /etc/nginx/conf.d/remote_nginx.conf && \
+#     sed -i s/remote.vicoders.com/${NAME_REMOTE_SERVER}/g /var/www/web/ecosystem/${NAME_REMOTE_SERVER}.json
 
 EXPOSE 80
 
