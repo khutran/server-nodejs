@@ -72,5 +72,5 @@ ADD run/mysqldump /usr/sbin/
 ADD run-httpd.sh /run-httpd.sh
 RUN chmod -v +x /run-httpd.sh
 
-ENTRYPOINT ["forever", "start", "/var/www/web/ecosystem/${NAME_REMOTE_SERVER}"]
+ENTRYPOINT ["forever", "start", "/var/www/web/ecosystem/${NAME_REMOTE_SERVER}.json"]
 CMD ["/run-httpd.sh"]
