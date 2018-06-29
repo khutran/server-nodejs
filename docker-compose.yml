@@ -31,7 +31,7 @@ services:
             #- ./logs/nginx:/var/log/nginx
         depends_on:
             - mysql
-        restart: always
+        # restart: always
 
     #MySQL config
     mysql:
