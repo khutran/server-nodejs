@@ -11,8 +11,6 @@ ENV nginxversion="1.12.2-1" \
     elversion="7_4" \
     port_apache=6669
 
-ARG  NAME_REMOTE_SERVER
-
 RUN yum install -y wget openssl sed &&\
     yum -y autoremove &&\
     yum clean all &&\
