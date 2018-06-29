@@ -64,7 +64,7 @@ RUN sed -i s/remote.vicoders.com/${NAME_REMOTE_SERVER}/g /etc/nginx/conf.d/${NAM
     sed -i s/remote.vicoders.com/${NAME_REMOTE_SERVER}/g /var/www/web/ecosystem/remote_forever.json
 
 EXPOSE 80
-
+WORKDIR /var/www/web/${NAME_REMOTE_SERVER}/workspace
 # Simple startup script to avoid some issues observed with container restart
 ADD run/mysql /usr/sbin/
 ADD run/mysqldump /usr/sbin/
@@ -73,3 +73,4 @@ ADD run-httpd.sh /run-httpd.sh
 RUN chmod -v +x /run-httpd.sh
 
 CMD ["/run-httpd.sh"]
+ENTRYPOINT ["yarn", "start"]
