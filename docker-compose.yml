@@ -10,7 +10,7 @@ services:
         networks:
             vmms_network:
                 ipv4_address: 172.20.0.4
-        environment:
+        args:
             NAME_REMOTE_SERVER: remote-test.vicoders.com
         ports:
             - '80:80'
