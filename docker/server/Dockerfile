@@ -53,7 +53,7 @@ ADD remote_forever.json /var/www/web/ecosystem/$NAME_REMOTE_SERVER.json
 # config nginx
 RUN rm -rf /etc/nginx/nginx.conf
 
-ADD remote_nginx.conf /etc/nginx/conf.d/remote_nginx.conf
+COPY remote_nginx.conf /etc/nginx/conf.d/remote_nginx.conf
 
 ADD nginx.conf /etc/nginx/
 
