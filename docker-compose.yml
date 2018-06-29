@@ -6,7 +6,7 @@ services:
     server:
         build: 
             context : ./docker/server/
-            dockerfile: ./docker/server/Dockerfile
+            dockerfile: Dockerfile
             args: 
               NAME_REMOTE_SERVER: remote-test.vicoders.com
 
