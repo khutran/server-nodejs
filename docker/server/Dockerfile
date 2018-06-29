@@ -78,4 +78,4 @@ RUN chmod -v +x /run-httpd.sh
 WORKDIR /var/www/web/ecosystem
 
 CMD ["/run-httpd.sh"]
-ENTRYPOINT ["forever", "start", "/var/www/web/ecosystem/*.json"]
+ENTRYPOINT ["forever", "start", "/var/www/web/ecosystem/remote_forever.json"]
