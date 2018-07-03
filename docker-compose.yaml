@@ -42,9 +42,7 @@ services:
       ports: 
         - '3000:3000'
       volumes:
-        - type: bind
-          source: ./source_code
-          target: /var/www/web/nodejs.vicoders.com/workspace
+        - ./source_code:/var/www/web
           # volume:
           #     nocopy: true
 
