@@ -31,7 +31,6 @@ services:
           context : ./docker/nodejs/
           dockerfile: Dockerfile
           args:
-            PORT: 3000
             NAME_SERVER: nodejs.vicoders.com
             MYSQL_USER: remote
             MYSQL_PASS: Vmms123456@s
@@ -42,8 +41,8 @@ services:
             ipv4_address: 172.20.0.5
       ports: 
         - '3000:3000'
-      # volumes:
-      #   - './var/www/web:/var/www/web'
+      volumes:
+        - './source_code:/var/www/web/nodejs.vicoders.com/workspace'
       depends_on:
         - mysql
 
