@@ -11,6 +11,7 @@ ARG MYSQL_PASS
 ARG MYSQL_HOST
 ARG PORT
 
+VOLUME /var/www/web
 # install nodejs
 RUN yum -y install git && \
     curl --silent --location https://rpm.nodesource.com/setup_8.x | bash - && \
@@ -42,8 +43,6 @@ RUN cp .env.example .env && \
     sed -i s/user_mysql/${MYSQL_USER}/g .env && \
     sed -i s/pass_mysql/${MYSQL_PASS}/g .env && \
     sed -i s/host_mysql/${MYSQL_HOST}/g .env
-
-VOLUME /var/www/web
 
 EXPOSE ${PORT}
 
