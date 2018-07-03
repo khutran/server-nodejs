@@ -12,6 +12,7 @@ ENV nginxversion="1.12.2-1" \
 
 ARG NAME_SERVER
 ARG HOST_NAME
+ARG PORT
 
 RUN yum install -y wget openssl sed &&\
     yum -y autoremove &&\
@@ -30,7 +31,8 @@ ADD remote_nginx.conf /etc/nginx/conf.d/${NAME_SERVER}.conf
 ADD nginx.conf /etc/nginx/
 
 RUN sed -i s/remote.vicoders.com/${NAME_SERVER}/g /etc/nginx/conf.d/${NAME_SERVER}.conf && \
-    sed -i s/127.0.0.1/${HOST_NAME}/g /etc/nginx/conf.d/${NAME_SERVER}.conf
+    sed -i s/127.0.0.1/${HOST_NAME}/g /etc/nginx/conf.d/${NAME_SERVER}.conf && \
+    sed -i s/3000/${PORT}/g /etc/nginx/conf.d/${NAME_SERVER}.conf
 
 EXPOSE 80
   
