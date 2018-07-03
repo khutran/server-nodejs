@@ -37,9 +37,8 @@ COPY source_code* /var/www/web/${NAME_SERVER}/workspace
 
 RUN sed -i s/remote.vicoders.com/${NAME_SERVER}/g /var/www/web/ecosystem/${NAME_SERVER}.json
 
-VOLUME /var/www/
-
 WORKDIR /var/www/web/${NAME_SERVER}/workspace
+VOLUME /var/www/web
 
 RUN yarn install 
 RUN cp .env.example .env && \
