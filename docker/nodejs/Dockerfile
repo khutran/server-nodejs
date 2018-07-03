@@ -11,7 +11,7 @@ ARG MYSQL_PASS
 ARG MYSQL_HOST
 ARG PORT
 
-VOLUME /var/www/web
+# VOLUME /var/www/web
 # install nodejs
 RUN yum -y install git && \
     curl --silent --location https://rpm.nodesource.com/setup_8.x | bash - && \

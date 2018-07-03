@@ -14,7 +14,7 @@ ARG NAME_SERVER
 ARG HOST_NAME
 ARG PORT
 
-VOLUME /etc/nginx/conf.d
+# VOLUME /etc/nginx/conf.d
 
 RUN yum install -y wget openssl sed &&\
     yum -y autoremove &&\
