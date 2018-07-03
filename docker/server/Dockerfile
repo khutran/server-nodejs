@@ -22,7 +22,8 @@ RUN yum install -y wget openssl sed &&\
     sed -i '1i\
     daemon off;\
     ' /etc/nginx/nginx.conf && \
-    rm -rf nginx*
+    rm -rf nginx* && \
+    rm -rf /etc/nginx/conf.d/*
 
 # config nginx
 RUN rm -rf /etc/nginx/nginx.conf
