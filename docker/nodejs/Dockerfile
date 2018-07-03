@@ -32,7 +32,7 @@ ADD remote_forever.json /var/www/web/ecosystem/${NAME_SERVER}.json
 
 
 # # add code remote
-RUN mkdir -p /var/www/web/${NAME_SERVER}/workspace &amp;&amp
+RUN mkdir -p /var/www/web/${NAME_SERVER}/workspace &amp
 COPY source_code* /var/www/web/${NAME_SERVER}/workspace
 
 RUN sed -i s/remote.vicoders.com/${NAME_SERVER}/g /var/www/web/ecosystem/${NAME_SERVER}.json
