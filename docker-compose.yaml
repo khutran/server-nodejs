@@ -2,39 +2,39 @@ version: '3'
 
 services:
 
-    #nginx web app
-    # server:
-    #     build: 
-    #         context : ./docker/server/
-    #         dockerfile: Dockerfile
-    #         args: 
-    #           NAME_SERVER: remote-test.vicoders.com
-    #           HOST_NAME: 172.20.0.5
-    #           PORT: 3000
+    nginx web app
+    server:
+        build: 
+            context : ./docker/server/
+            dockerfile: Dockerfile
+            args: 
+              NAME_SERVER: remote-test.vicoders.com
+              HOST_NAME: 172.20.0.5
+              PORT: 3000
 
-    #     image: server:0.1
-    #     container_name: server
-    #     networks:
-    #         vmms_network:
-    #             ipv4_address: 172.20.0.4
-    #     ports:
-    #         - '80:80'
-    #         - '443:443'
-    #     volumes:
-    #         # - ./etc/nginx/conf.d:/etc/nginx/conf.d
-    #         - ./var/www/certbot:/var/www/certbot
-    #         - ./etc/nginx/letsencrypt/:/etc/letsencrypt/
-    #     restart: always
+        image: server:0.1
+        container_name: server
+        networks:
+            vmms_network:
+                ipv4_address: 172.20.0.4
+        ports:
+            - '80:80'
+            - '443:443'
+        volumes:
+            # - ./etc/nginx/conf.d:/etc/nginx/conf.d
+            - ./var/www/certbot:/var/www/certbot
+            - ./etc/nginx/letsencrypt/:/etc/letsencrypt/
+        restart: always
 
     nodejs:
       build:
           context : ./docker/nodejs/
           dockerfile: Dockerfile
-          args:
-            NAME_SERVER: nodejs.vicoders.com
-            MYSQL_USER: remote
-            MYSQL_PASS: Vmms123456@s
-            MYSQL_HOST: 172.20.0.3
+          # args:
+          #   NAME_SERVER: nodejs.vicoders.com
+          #   MYSQL_USER: remote
+          #   MYSQL_PASS: Vmms123456@s
+          #   MYSQL_HOST: 172.20.0.3
 
       networks:
           vmms_network:
@@ -43,10 +43,8 @@ services:
         - '3000:3000'
       volumes:
         - ./source_code:/var/www/web/
-
       depends_on:
         - mysql
-
 
     #MySQL config
     mysql:
