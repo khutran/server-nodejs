@@ -1,4 +1,4 @@
-version: '3.2'
+version: '3'
 
 services:
 
@@ -42,10 +42,10 @@ services:
       ports: 
         - '3000:3000'
       volumes:
-          - type: volume
-            source: source_code
-            target: /var/www/web/nodejs.vicoders.com/workspace
-            volume:
+        - type: bind
+          source: source_code
+          target: /var/www/web/nodejs.vicoders.com/workspace
+          volume:
               nocopy: true
 
       depends_on:
