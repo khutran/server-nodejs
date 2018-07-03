@@ -42,11 +42,11 @@ services:
       ports: 
         - '3000:3000'
       volumes:
-        - type: volume
-          source: ./source_code
-          target: /var/www/web/nodejs.vicoders.com/workspace
-          volume:
-              nocopy: true
+          - type: volume
+            source: ./source_code
+            target: /var/www/web/nodejs.vicoders.com/workspace
+            volume:
+                nocopy: true
 
       depends_on:
         - mysql
