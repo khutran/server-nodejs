@@ -45,7 +45,8 @@ RUN yarn install
 RUN cp .env.example .env && \
     sed -i s/user_mysql/${MYSQL_USER}/g .env && \
     sed -i s/pass_mysql/${MYSQL_PASS}/g .env && \
-    sed -i s/host_mysql/${MYSQL_HOST}/g .env
+    sed -i s/host_mysql/${MYSQL_HOST}/g .env && \ 
+    echo "PORT=${PORT}" >> .env
 
 EXPOSE ${PORT}
 
