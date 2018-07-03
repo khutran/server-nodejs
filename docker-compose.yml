@@ -20,7 +20,7 @@ services:
             - '80:80'
             - '443:443'
         volumes:
-            - ./etc/nginx/conf.d:/etc/nginx/conf.d
+            # - ./etc/nginx/conf.d:/etc/nginx/conf.d
             - ./var/www/certbot:/var/www/certbot
             - ./etc/nginx/letsencrypt/:/etc/letsencrypt/
         restart: always
@@ -35,7 +35,7 @@ services:
             MYSQL_USER: remote
             MYSQL_PASS: Vmms123456@s
             MYSQL_HOST: 172.20.0.3
-            
+
       networks:
           vmms_network:
             ipv4_address: 172.20.0.5
