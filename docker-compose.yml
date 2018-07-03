@@ -43,7 +43,7 @@ services:
       ports: 
         - '3000:3000'
       volumes:
-        './var/www/web:/var/www/web'
+        - './var/www/web:/var/www/web'
       depends_on:
         - mysql
 

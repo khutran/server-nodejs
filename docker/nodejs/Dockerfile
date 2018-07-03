@@ -43,6 +43,8 @@ RUN cp .env.example .env && \
     sed -i s/pass_mysql/${MYSQL_PASS}/g .env && \
     sed -i s/host_mysql/${MYSQL_HOST}/g .env
 
+VOLUME /var/www/web
+
 EXPOSE ${PORT}
 
 # WORKDIR /var/www/web/ecosystem
