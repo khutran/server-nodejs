@@ -5,16 +5,12 @@ LABEL Vendor="CentOS" \
       License=GPLv2 \
       Version=2.4.6-40
 
-ARG NAME_REMOTE_SERVER
-ARG MYSQL_USER
-ARG MYSQL_PASS
-ARG MYSQL_HOST
-
 ENV nginxversion="1.12.2-1" \
     os="centos" \
     osversion="7" \
-    elversion="7_4" \
-    port_apache=6669 
+    elversion="7_4"
+    
+ARG NAME_SERVER
 
 RUN yum install -y wget openssl sed &&\
     yum -y autoremove &&\
@@ -26,55 +22,15 @@ RUN yum install -y wget openssl sed &&\
     ' /etc/nginx/nginx.conf && \
     rm -rf nginx*
 
-    #sed -i s/80/${port_apache}/g /etc/httpd/conf/httpd.conf && \
-    #sed -i 's/DirectoryIndex index.html/DirectoryIndex index.php index.html/g' /etc/httpd/conf/httpd.conf && \
-    #echo "IncludeOptional conf.d/web/*.conf" >> /etc/httpd/conf/httpd.conf
-
-
-# install nodejs
-RUN yum -y install git && \
-    curl --silent --location https://rpm.nodesource.com/setup_8.x | bash - && \
-    curl --silent --location https://dl.yarnpkg.com/rpm/yarn.repo | tee /etc/yum.repos.d/yarn.repo && \
-    yum -y install nodejs && \
-    yum -y install yarn && \
-    yum -y install gcc-c++ make && \
-    yum -y install libgcrypt-devel && \
-    ln -s /usr/lib64/libcurl.so.4 /usr/lib64/libcurl-gnutls.so.4 && \
-    yum clean all
-    
-# install forever 
-RUN npm install forever -g
-
-#install composer 
-ADD composer.phar /usr/sbin/composer
-
-#config forever 
-RUN mkdir -p /var/www/web/ecosystem
-ADD remote_forever.json /var/www/web/ecosystem/remote_forever.json
-
 # config nginx
 RUN rm -rf /etc/nginx/nginx.conf
 
-ADD remote_nginx.conf /etc/nginx/conf.d/${NAME_REMOTE_SERVER}.conf
+ADD remote_nginx.conf /etc/nginx/conf.d/${NAME_SERVER}.conf
 ADD nginx.conf /etc/nginx/
 
 
-# # add code remote
-RUN mkdir -p /var/www/web/${NAME_REMOTE_SERVER}/workspace
-COPY source_code* /var/www/web/${NAME_REMOTE_SERVER}/workspace
-
-RUN sed -i s/remote.vicoders.com/${NAME_REMOTE_SERVER}/g /etc/nginx/conf.d/${NAME_REMOTE_SERVER}.conf && \
-    sed -i s/remote.vicoders.com/${NAME_REMOTE_SERVER}/g /var/www/web/ecosystem/remote_forever.json
-
 EXPOSE 80
-
-WORKDIR /var/www/web/${NAME_REMOTE_SERVER}/workspace
-RUN yarn install 
-RUN cp .env.example .env && \
-    sed -i s/user_mysql/${MYSQL_USER}/g .env && \
-    sed -i s/pass_mysql/${MYSQL_PASS}/g .env && \
-    sed -i s/host_mysql/${MYSQL_HOST}/g .env
-    
+  
 # Simple startup script to avoid some issues observed with container restart
 ADD run/mysql /usr/sbin/
 ADD run/mysqldump /usr/sbin/
@@ -85,4 +41,3 @@ RUN chmod -v +x /run-httpd.sh
 # WORKDIR /var/www/web/ecosystem
 
 CMD ["/run-httpd.sh"]
-ENTRYPOINT ["yarn", "devstart"]
