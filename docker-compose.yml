@@ -41,8 +41,12 @@ services:
             ipv4_address: 172.20.0.5
       ports: 
         - '3000:3000'
-      # volumes:
-      #   - './source_code:/var/www/web/nodejs.vicoders.com/workspace'
+      volumes:
+        - type: volume
+          source: source_code
+          target: /var/www/web/nodejs.vicoders.com/workspace
+          volume:
+            nocopy: true
       depends_on:
         - mysql
 
