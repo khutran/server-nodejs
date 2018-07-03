@@ -9,6 +9,7 @@ services:
             dockerfile: Dockerfile
             args: 
               NAME_SERVER: remote-test.vicoders.com
+              HOST_NAME: 172.20.0.5
 
         image: server:0.1
         container_name: server
@@ -28,11 +29,13 @@ services:
       build:
           context : ./docker/nodejs/
           dockerfile: Dockerfile
-          args: 
-            NAME_REMOTE_SERVER: nodejs.vicoders.com
+          args:
+            PORT: 3000
+            NAME_SERVER: nodejs.vicoders.com
             MYSQL_USER: remote
             MYSQL_PASS: Vmms123456@s
             MYSQL_HOST: 172.20.0.3
+            
       networks:
           vmms_network:
             ipv4_address: 172.20.0.5
