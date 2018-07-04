@@ -42,8 +42,8 @@ RUN yum -y install git && \
 RUN npm install forever -g
 
 #config forever 
-RUN mkdir -p /var/www/web/ecosystem
-ADD remote_forever.json /var/www/web/ecosystem/${NAME_SERVER}.json
+RUN mkdir -p /var/www/config/ecosystem
+ADD remote_forever.json /var/www/config/ecosystem/${NAME_SERVER}.json
 
 # config nginx
 RUN rm -rf /etc/nginx/nginx.conf
@@ -54,9 +54,10 @@ ADD nginx.conf /etc/nginx/
 RUN sed -i s/remote.vicoders.com/${NAME_SERVER}/g /etc/nginx/conf.d/${NAME_SERVER}.conf && \
     sed -i s/127.0.0.1/${HOST_NAME}/g /etc/nginx/conf.d/${NAME_SERVER}.conf && \
     sed -i s/3000/${PORT}/g /etc/nginx/conf.d/${NAME_SERVER}.conf && \
-    sed -i s/remote.vicoders.com/${NAME_SERVER}/g /var/www/web/ecosystem/${NAME_SERVER}.json
+    sed -i s/remote.vicoders.com/${NAME_SERVER}/g /var/www/config/ecosystem/${NAME_SERVER}.json
 
 WORKDIR /var/www/web/${NAME_SERVER}/workspace
+VOLUME [ "/var/www/web" ]
 
 EXPOSE 80
   
