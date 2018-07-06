@@ -8,9 +8,9 @@ services:
             context : ./docker/server/
             dockerfile: Dockerfile
             args: 
-              NAME_SERVER: remote-test.vicoders.com
-              HOST_NAME: 172.20.0.5
-              PORT: 3000
+              NAME_SERVER: api.vicoders.com
+              HOST_NAME_MYSQL: 172.20.0.3
+              PORT: 3010
 
         image: server:0.1
         container_name: server
@@ -18,8 +18,8 @@ services:
             vmms_network:
                 ipv4_address: 172.20.0.4
         ports:
-            - '80:80'
-            - '443:443'
+            - '8080:8080'
+            # - '443:443'
         volumes:
             - ./var/www/web:/var/www/web
             # - ./var/www/certbot:/var/www/certbot
@@ -42,7 +42,7 @@ services:
             vmms_network:
                 ipv4_address: 172.20.0.3
         ports:
-            - '3306:3306'
+            - '3305:3305'
         volumes:
             - ./var/lib/mysql:/bitnami
             - ./etc/bitnami/mysql/conf:/opt/bitnami/mysql/conf

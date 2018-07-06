@@ -1,9 +1,9 @@
 {
-  "uid": "remote.vicoders.com",
+  "uid": "node.vicoders.com",
   "append": true,
   "watch": false,
   "script": "./dist/app.js",
-  "sourceDir": "/var/www/web/remote.vicoders.com/workspace",
+  "sourceDir": "/var/www/web/node.vicoders.com/workspace",
   "minUptime" : 1000,
   "spinSleepTime" : 1000
 }
